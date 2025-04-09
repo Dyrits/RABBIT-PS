@@ -1,0 +1,52 @@
+services:
+    rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+            - "15672:15672" # RabbitMQ Management UI
+            - "5672:5672"   # RabbitMQ AMQP protocol
+        environment:
+            RABBITMQ_DEFAULT_USER: hipay-user
+            RABBITMQ_DEFAULT_PASS: hipay-password
+        volumes:
+            - rabbitmq-data:/var/lib/rabbitmq
+
+    server:
+        build:
+            context: ./server
+        restart: on-failure
+        ports:
+            - "8080:8080"
+        environment:
+            - RABBITMQ_HOST=rabbitmq
+            - RABBITMQ_PORT=5672
+            - RABBITMQ_USER=hipay-user
+            - RABBITMQ_PASS=hipay-password
+        depends_on:
+            - rabbitmq
+
+    consumer:
+        build:
+            context: ./consumer
+        restart: on-failure
+        ports:
+            - "8081:8081"
+        environment:
+            - RABBITMQ_HOST=rabbitmq
+            - RABBITMQ_PORT=5672
+            - RABBITMQ_USER=hipay-user
+            - RABBITMQ_PASS=hipay-password
+            - CONSUMER_PORT=8081
+        depends_on:
+            - rabbitmq
+
+    client:
+        build:
+            context: ./client
+        environment:
+            - SERVER_HOST=server
+            - SERVER_PORT=8080
+        depends_on:
+            - server
+
+volumes:
+    rabbitmq-data:

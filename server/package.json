@@ -1,0 +1,25 @@
+{
+  "name": "rabbit-server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "watch": "tsx watch app.ts"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.7",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "^5.1.0",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.7",
+    "@types/express": "^5.0.1",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.14.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  }
+}
