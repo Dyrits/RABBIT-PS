@@ -9,7 +9,7 @@
   "dependencies": {
     "amqplib": "^0.10.7",
     "express": "^5.1.0",
-    "morgan": "~1.9.1"
+    "morgan": "^1.12.1"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.7",
